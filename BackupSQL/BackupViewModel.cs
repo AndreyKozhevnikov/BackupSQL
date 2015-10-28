@@ -120,7 +120,14 @@ namespace BackupSQL {
 
             ProcessStartInfo winRarInfo = new ProcessStartInfo();
             winRarInfo.FileName = winRarPath;
-            winRarInfo.Arguments = string.Format(@" a -ep ""{0}\BackupMSSQL\MyBases_backup_{1}.rar""  ""{0}\BackupMSSQL\*.bak""", pathDropbox, backupDate);
+           string machineName = System.Environment.MachineName;
+           string mName = "";
+           if (machineName == "KOZHEVNIKOV-W8")
+               mName = "work";
+           else
+               mName = "home";
+
+           winRarInfo.Arguments = string.Format(@" a -ep ""{0}\BackupMSSQL\MyBases_backup_{1}_{2}.rar""  ""{0}\BackupMSSQL\*.bak""", pathDropbox, backupDate, mName);
             Process.Start(winRarInfo);
             //"c:\Program Files (x86)\WinRAR\Rar.exe" a -ep "F:\dropbox\english\backup\MyBases_backup_%custDate%.rar"  "F:\temp\backup\*.bak"
         }
