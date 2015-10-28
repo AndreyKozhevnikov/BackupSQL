@@ -1,0 +1,34 @@
+﻿<Window x:Class="BackupSQL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="BackUp"/>
+            <StackPanel Grid.Row="1">
+                <CheckBox Content="EngBase" IsChecked="{Binding IsEngBaseBackup}"/>
+                <CheckBox Content="Budget" IsChecked="{Binding IsBudgetBackup}"/>
+                <CheckBox Content="Tickets" IsChecked="{Binding IsTicketsBackup}"/>
+            </StackPanel>
+            <Button Content="BackUp" Grid.Row="2" Command="{Binding BackupCommand}"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Content="RestoreEng" Command="{Binding RestoreCommand}"/>
+        </Grid>
+
+    </Grid>
+</Window>
