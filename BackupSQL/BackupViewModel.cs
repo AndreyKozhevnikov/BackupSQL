@@ -39,6 +39,10 @@ namespace BackupSQL {
                     case "DXTicketsBase":
                         IsTicketsBackup = true;
                         break;
+                    case "ListOfDealBase":
+                        IsListOfDealBackup = true;
+                        break;
+
                 }
             }
             backupPath = pathDropbox + "\\BackupMSSQL";
@@ -52,7 +56,12 @@ namespace BackupSQL {
         bool _isEngBaseBackup;
         bool _isBudgetBackup;
         bool _isTicketsBackup;
+        bool _isListOfDealBackup;
 
+        public bool IsListOfDealBackup {
+            get { return _isListOfDealBackup; }
+            set { _isListOfDealBackup = value; }
+        }
         public bool IsEngBaseBackup {
             get { return _isEngBaseBackup; }
             set { _isEngBaseBackup = value; }
@@ -112,6 +121,8 @@ namespace BackupSQL {
                 BackupBase("Budget");
             if (IsTicketsBackup)
                 BackupBase("DXTicketsBase");
+            if (IsListOfDealBackup)
+                BackupBase("ListOfDealBase");
 
             MsSqlConnector.Close();
 
