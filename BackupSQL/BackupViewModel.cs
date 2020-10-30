@@ -133,7 +133,7 @@ namespace BackupSQL {
             winRarInfo.FileName = winRarPath;
            string machineName = System.Environment.MachineName;
            string mName = "";
-           if (machineName == "KOZHEVNIKOV-W10")
+           if (machineName == "KOZHEVNIKOV-NB")
                mName = "work";
            else
                mName = "home";
