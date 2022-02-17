@@ -27,24 +27,7 @@ namespace BackupSQL {
             XElement xl = XElement.Parse(st);
             pathDropbox = xl.Element("Dropbox").Value;
             winRarPath = xl.Element("BackupSetting").Element("WinRar").Value;
-            foreach (XElement x in xl.Element("BackupSetting").Element("Bases").Elements()) {
-                string stBaseName = x.Value;
-                switch (stBaseName) {
-                    case "EngBase":
-                        IsEngBaseBackup = true;
-                        break;
-                    case "Budget":
-                        IsBudgetBackup = true;
-                        break;
-                    case "DXTicketsBase":
-                        IsTicketsBackup = true;
-                        break;
-                    case "ListOfDealBase":
-                        IsListOfDealBackup = true;
-                        break;
-
-                }
-            }
+            basesToBackup = xl.Element("BackupSetting").Element("Bases").Elements().Select(x => x.Value).ToList();
             backupPath = pathDropbox + "\\BackupMSSQL";
         }
 
@@ -52,6 +35,7 @@ namespace BackupSQL {
         string pathDropbox;
         string backupPath;
         string winRarPath;
+        List<string> basesToBackup;
 
         bool _isEngBaseBackup;
         bool _isBudgetBackup;
@@ -115,14 +99,18 @@ namespace BackupSQL {
 
             //1 BackupFile
             MsSqlConnector.Open();
-            if (IsEngBaseBackup)
-                BackupBase("EngBase");
-            if (IsBudgetBackup)
-                BackupBase("Budget");
-            if (IsTicketsBackup)
-                BackupBase("DXTicketsBase");
-            if (IsListOfDealBackup)
-                BackupBase("ListOfDealBase");
+            foreach(var bs in basesToBackup) {
+                BackupBase(bs);
+            }
+            //if (IsEngBaseBackup)
+            //    BackupBase("EngBase");
+            //if (IsBudgetBackup)
+            //    BackupBase("Budget");
+            //if (IsTicketsBackup)
+            //    BackupBase("DXTicketsBase");
+            //if (IsListOfDealBackup)
+            //    BackupBase("ListOfDealBase");
+           // BackupBase("ComplexPortfolio");
 
             MsSqlConnector.Close();
 
